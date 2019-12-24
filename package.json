@@ -1,0 +1,24 @@
+{
+  "name": "nuxt-vant",
+  "version": "1.0.0",
+  "description": "framework by nuxt vs min-ui",
+  "author": "jian652485051@163.com",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.6.0",
+    "js-md5": "^0.7.3",
+    "nuxt": "^2.10.1",
+    "postcss-assets": "^5.0.0",
+    "postcss-nested": "^4.1.2",
+    "postcss-pxtorem": "^4.0.1",
+    "vant": "^2.2.7",
+    "vee-validate": "^3.0.11"
+  },
+  "devDependencies": {}
+}

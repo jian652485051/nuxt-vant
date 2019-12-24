@@ -1,0 +1,69 @@
+:root {
+    --bodybg-color:#f5f5f5;
+    --def-text-color:#666666;
+    --def-color:#0277d0;
+    --def-color-opc60:rgba(2,119,208,.6);
+    --def-color-opc80:rgba(2,119,208,.8);
+    --def-font-size:14px;
+    --def-font:"Microsoft Yahei","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --wrapper:1180px;
+
+    --fz14:14px;
+    --fz16:16px;
+    --white:#ffffff;
+    --gray:#666666;
+
+    --orange:#fc6420;
+    --ddd:#dddddd;
+    --e8: #e8e8e8;
+    --red:#ff6d6d;
+    --de5b1f: #de5b1f;
+    --white60:rgba(255,255,255,.6);
+}
+
+html,body { min-height:100%;}
+html { position:relative; min-width:var(--wrapper); overflow-x:auto;}
+body { margin:0; padding:0 0 150px; background-color:var(--white); color:var(--def-text-color); font-size:var(--def-font-size); font-family:var(--def-font); line-height:1.8;}
+ul,li,dl,dt,dd {list-style-type:none; margin:0; padding:0;}
+em { font-style:normal;}
+h1,h2,h3,h4,h5,h6,p { margin:0; padding:0;}
+img { border:0; max-width:100%; height:auto;}
+a { color:var(--def-text-color); text-decoration:none; transition:all 0.3s ease; cursor:pointer;}
+a:hover { color:var(--def-color);}
+s { color:#999999;}
+i {font-style:normal;}
+
+.fix { *zoom:1; *clear:both;}
+.fix:before, .fix:after { display:table; clear:both; content:'';}
+.l { float:left;}
+.r { float:right;}
+.tl { text-align:left;}
+.tr {text-align:right;}
+.tc {text-align:center;}
+.red { color:var(--def-color);}
+.dib { display:inline-block; white-space:nowrap;}
+.el { overflow:hidden; white-space:nowrap; text-overflow:ellipsis;}
+.hide { display:none;}
+.fz14 { font-size:var(--fz14);}
+.fz16 { font-size:var(--fz16);}
+.wrap { width:var(--wrapper); margin-left:auto; margin-right:auto;}
+.noLink { cursor:default;}
+
+/* flex栅格 */
+.flex-col { overflow:hidden; display:-ms-box; display:-ms-flexbox; display:flex; flex-direction:column; -ms-flex-direction:column;}
+.flex-row { overflow:hidden; display:-ms-box; display:-ms-flexbox; display:flex;}
+.flex-1 { flex:1; min-width:0;}
+.flex-2 { flex:2; min-width:0;}
+.flex-3 { flex:3; min-width:0;}
+.flex-4 { flex:4; min-width:0;}
+.align-stretch { -ms-align-items:stretch; -ms-flex-align:stretch; align-items:stretch;}
+.align-center { -ms-align-items:center; -ms-flex-align:center; align-items:center;}
+.justify-center { -ms-box-pack:center; -ms-flex-pack:center; justify-content:center;}
+a label { cursor:pointer;}
+
+@font-face {font-family:"iconfont";
+  src: url('../assets/font/iconfont.woff?t=1555055278944') format('woff'),
+  url('../assets/font/iconfont.ttf?t=1555055278944') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+  url('../assets/font/iconfont.svg?t=1555055278944#iconfont') format('svg'); /* iOS 4.1- */
+}
+.ion { font-family:"iconfont"!important; display:inline-block; vertical-align:middle; font-size:1.1em; height:1.1em; line-height:1.1em; font-style:normal; -webkit-font-smoothing:antialiased; -webkit-text-stroke-width:0.2px; -moz-osx-font-smoothing:grayscale; }
