@@ -1,5 +1,5 @@
 export default {
-  mode: 'universal',  //universal or spa
+  mode: 'spa',  //universal or spa
 
   server: {
     port: 3001, // default: 3000
