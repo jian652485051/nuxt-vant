@@ -1,9 +1,11 @@
+import { api } from './config'
+
 export default {
-  mode: 'spa',  //universal or spa
+  ssr:false,  //是否服务端渲染,false为单页面应用
 
   server: {
-    port: 3001, // default: 3000
-    host: '0.0.0.0', // default: localhost,
+    port: 3001,       // default: 3000
+    host: '0.0.0.0',  // default: localhost,
   },
   /*
   ** Headers of the page
@@ -50,6 +52,7 @@ export default {
     '@nuxtjs/axios'
   ],
   axios: {
+    baseURL:api,
     retry: {
       retries: 3
     },
@@ -92,6 +95,9 @@ export default {
     ** You can extend webpack config here
     */
     extend (config, { isDev }) {
+      //每次构建打包时给文件名加上时间戳，保证版本更新时与上版本文件名不一样
+      config.output.filename = `js/[name].${new Date().getTime()}.js`;
+      config.output.chunkFilename = `js/[name].${new Date().getTime()}.js`;
       if (isDev && process.client) {
         config.module.rules.push({
           enforce: 'pre',

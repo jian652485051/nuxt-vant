@@ -7,25 +7,14 @@
       </p>
       <p><i>To login, use <br>username：18766381667 <br>and <br>password：222222</i></p>
 
-      <van-cell-group>
-        <no-ssr>
-          <ValidationObserver ref="observer" tag="form" v-slot="observer">
-            <form @submit.prevent="login()">
-              <ValidationProvider rules="required|mobile" v-slot="provider">
-                <van-field v-model="formUsername" clearable label="联系人电话" right-icon="question-o" placeholder="请输入手机号码" required :error-message="provider.errors[0]" @click-right-icon="$toast('question')" />
-              </ValidationProvider>
-              <ValidationProvider rules="required|max:8|min:2" v-slot="provider">
-                <van-field v-model="formPassword" type="password" label="密码" placeholder="请输入密码" required :error-message="provider.errors[0]" />
-              </ValidationProvider>
-              <button type="submit">Login</button>
-            </form>
-          </ValidationObserver>
-        </no-ssr>
-      </van-cell-group>
-
-      <button @click="resetValidate">
-        resetValidate
-      </button>
+      <van-form ref="loginForm" @failed="onFailed" @submit="onSubmit" :show-error-message="false">
+        <van-field v-model="formData.mobile" icon-prefix="ion" left-icon="phone" name="mobile" label="" placeholder="请输入手机号码" maxlength="11" :rules="[{ required: true, message: '请输入手机号码',validator:checkMobile }]"></van-field>
+        <van-field v-model="formData.password" icon-prefix="ion" left-icon="password" type="password" name="password" label="" placeholder="请输入密码" :rules="[{ required: true, message: '请输入密码' }]" class="password"></van-field>
+        <div class="loginBtn">
+          <van-button round block type="info" native-type="submit" class="com_btn">登录</van-button>
+        </div>
+      </van-form>
+      <van-button round block class="com_btn" @click="resetValidate">重置</van-button>
     </div>
     <div v-else>
       Hello!
@@ -71,6 +60,10 @@ export default {
   data () {
     return {
       formError: null,
+      formData:{
+        mobile:'',
+        password:''
+      },
       formUsername: '',
       formPassword: '',
       currentRate:0
@@ -85,26 +78,39 @@ export default {
     }
   },
   methods: {
-    async login () {
-      const isValid = await this.$refs.observer.validate();
-      if (isValid) {
-        let password = this.formPassword ? md5(this.formPassword) : '';
-        this.$store.dispatch('login', { mobile: this.formUsername, password: password }).then((res) => {
-          this.$toast.success(res.statusCode);
-          this.formUsername = ''
-          this.formPassword = ''
-          this.formError = null
-
-          if(res.data.access_token){
-            this.common.setCookie('access_token',res.data.access_token)
-            this.$store.state.access_token = res.data.access_token;
-          }
-          
-        })
+    checkMobile(val){
+      if(val.length === 11){
+        return true
+      }else{
+        return false
       }
     },
+    onSubmit(values) {
+      let password = this.formData.password ? md5(this.formData.password) : '';
+      let loginParams = {
+        mobile:this.formData.mobile,
+        password:password
+      }
+      this.$store.dispatch('login', loginParams).then((res) => {
+        this.$toast.success(res.statusCode);
+        this.formData.mobile = ''
+        this.formData.password = ''
+        this.formError = null
+
+        if(res.data.access_token){
+          this.common.setCookie('access_token',res.data.access_token)
+          this.$store.commit('SET_TOKEN', res.data.access_token)
+        }
+        
+      })
+    },
+    onFailed(errorInfo) {
+      console.log('failed', errorInfo);
+    },
     resetValidate(){
-      this.$refs.observer.reset();
+      this.formData.mobile = ''
+      this.formData.password = ''
+      this.$refs.loginForm.resetValidation(['mobile','password']);
     },
     logout () {
       this.common.delCookie();

@@ -1,5 +1,3 @@
-import { api } from '../config'
-
 export default {
   // nuxtServerInit is called by Nuxt.js before server-rendering every page
   async nuxtServerInit ({ commit }, { req }) {
@@ -26,13 +24,13 @@ export default {
   },
 
   async login({ commit }, params) {
-    const data = await this.$axios.$post(`${api}/index.php/web/public/login`,params)
+    const data = await this.$axios.$post(`/index.php/web/public/login`,params)
     commit('SET_USER', data)
     return data
   },
 
   async ARTICLE({ commit }, params) {
-    const data = await this.$axios.$get(`${api}/index.php/web/public/article`,{params:params})
+    const data = await this.$axios.$get(`/index.php/web/public/article`,{params})
     if(data.data){
         commit('ARTICLE', data)
     }
